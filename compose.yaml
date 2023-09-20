@@ -1,0 +1,17 @@
+services:
+  alex:
+    build:
+      context: .
+      target: alex
+    ports:
+      - "5000:5000"
+  carla:
+    build:
+      context: .
+      target: carla
+    ports:
+      - "5001:5001"
+  # test:
+  #   build:
+  #     context: .
+  #     target: test
