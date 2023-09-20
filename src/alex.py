@@ -7,7 +7,7 @@ binsList = []
 
 @app.route('/')
 def home():
-    return "hi"
+    return "hi from alex"
 
 @app.route('/newproblem/')
 def newproblem():
@@ -77,6 +77,6 @@ def endProblem(problemID):
 
 
 if __name__ == '__main__':
-    host = 'localhost'
-    port = 5001
+    host = '0.0.0.0'
+    port = 5000
     app.run(host=host, port=port, debug=True)
