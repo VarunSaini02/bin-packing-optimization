@@ -3,15 +3,23 @@ services:
     build:
       context: .
       target: alex
-    ports:
-      - "5000:5000"
+    expose:
+      - 5000
   carla:
     build:
       context: .
       target: carla
+    expose:
+      - 5000
+  algo-eval:
+    build:
+      context: .
+      target: algo-eval
     ports:
-      - "5001:5001"
-  # test:
-  #   build:
-  #     context: .
-  #     target: test
+      - 5000:5000
+  algo-eval-storage:
+    build:
+      context: .
+      target: algo-eval-storage
+    expose:
+      - 5000
