@@ -1,5 +1,5 @@
 import flask
-import json
+from flask import jsonify
 
 app = flask.Flask(__name__)
 
@@ -32,6 +32,7 @@ def placeitem(problemID, size):
         sizeList = bins[i].split('!')
         if sizeList[0] == '':
             bins[i] = size
+            loc = i + 1
             added = True
             break
         spaceTaken = 0
@@ -39,16 +40,24 @@ def placeitem(problemID, size):
             spaceTaken += int(item)
         if spaceTaken + size <= 100:
             bins[i] += '!' + str(size)
+            loc = i + 1
             added = True
             break
     if not added:
         bins.append(size)
+        loc = len(bins)
     final = '##'
     for bin in bins:
         final += str(bin) + '#'
     final += '' if len(bins) == 0 else '#'
     binsList[problemID] = final
-    return final
+
+    return {
+        'ID': problemID,
+        'size': size,
+        'loc': loc,
+        'bins': final,
+    }
 
 @app.route('/endproblem/<problemID>/')
 def endProblem(problemID):
@@ -73,7 +82,7 @@ def endProblem(problemID):
     data['wasted'] = data['count'] * 100 - totalSize
     data['bins'] = binsList[problemID]
     binsList[problemID] += 'c'
-    return json.dumps(data)
+    return jsonify(data)
 
 
 if __name__ == '__main__':
