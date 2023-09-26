@@ -4,16 +4,20 @@ from flask import jsonify
 app = flask.Flask(__name__)
 
 binsList = []
+binsSizeList = []
 
 @app.route('/')
 def home():
     return "hi from alex"
 
-@app.route('/newproblem/')
-def newproblem():
+
+@app.route('/newproblem/', defaults={'bin_size': 100})
+@app.route('/newproblem/<bin_size>')
+def newproblem(bin_size):
     id = len(binsList)
     binEncoding = "##"
     binsList.append(binEncoding)
+    binsSizeList.append(int(bin_size))
     newproblem = {'ID': id, 'bins': binEncoding}
     return newproblem
 
@@ -24,8 +28,8 @@ def placeitem(problemID, size):
     if binsList[problemID][-1] == 'c':
         return "This list is closed. You can no longer add to it."
     problem = binsList[problemID]
-    if size > 100 :
-        return "Failed to add to bin. Item is sized greater than 100."
+    if size > binsSizeList[problemID] :
+        return f"Failed to add to bin. Item is sized greater than {binsSizeList[problemID]}."
     bins = problem[2:-2].split('#')
     added = False
     for i in range(len(bins)):
@@ -38,7 +42,7 @@ def placeitem(problemID, size):
         spaceTaken = 0
         for item in sizeList:
             spaceTaken += int(item)
-        if spaceTaken + size <= 100:
+        if spaceTaken + size <= binsSizeList[problemID]:
             bins[i] += '!' + str(size)
             loc = i + 1
             added = True
@@ -79,7 +83,7 @@ def endProblem(problemID):
     data['size'] = totalSize
     data['items'] = numItems
     data['count'] = len(bins)
-    data['wasted'] = data['count'] * 100 - totalSize
+    data['wasted'] = data['count'] * binsSizeList[problemID] - totalSize
     data['bins'] = binsList[problemID]
     binsList[problemID] += 'c'
     return jsonify(data)
