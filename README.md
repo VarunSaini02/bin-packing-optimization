@@ -3,6 +3,23 @@ Algorithm evaluation built on an API for bin packing. (CS 347: Advanced Software
 
 Varun Saini, Albert Jing, Geoffrey Jing
 
+## How to run
+
+Run this command to build the containers:
+```
+`docker-compose up --build`
+```
+
+By default, only `algo-eval` is exposed to the host machine (on port 5001).
+
+To run the test suite, navigate to the following URL:
+```
+http://localhost:5001/compare/<num_runs>/<num_items>/<max_bin_size>
+```
+
+As an example, try navigating to this URL:
+[http://localhost:5001/compare/5/10/100](http://localhost:5001/compare/5/10/100)
+
 ---
 
 Original README:
