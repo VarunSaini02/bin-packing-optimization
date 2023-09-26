@@ -57,6 +57,7 @@ def compare(endpt1, endpt2, num_runs, num_items, max_bin_size):
 
 @app.route('/ping/<hostname>')
 def ping(hostname):
+    default_port = 5000
     return requests.get(f"http://{hostname}:{default_port}").text
 
 if __name__ == '__main__':
