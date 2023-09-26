@@ -16,7 +16,7 @@ services:
       context: .
       target: algo-eval
     ports:
-      - 5000:5000
+      - 5001:5000
   algo-eval-storage:
     build:
       context: .
