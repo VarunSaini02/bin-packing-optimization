@@ -1,23 +1,27 @@
 services:
   alex:
+    container_name: alex
     build:
       context: .
       target: alex
     expose:
       - 5000
   carla:
+    container_name: carla
     build:
       context: .
       target: carla
     expose:
       - 5000
   algo-eval:
+    container_name: algo-eval
     build:
       context: .
       target: algo-eval
     ports:
       - 5001:5000
   algo-eval-storage:
+    container_name: algo-eval-storage
     build:
       context: .
       target: algo-eval-storage
