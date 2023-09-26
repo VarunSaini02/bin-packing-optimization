@@ -10,7 +10,6 @@ binsSizeList = []
 def home():
     return "hi from alex"
 
-
 @app.route('/newproblem/', defaults={'bin_size': 100})
 @app.route('/newproblem/<bin_size>')
 def newproblem(bin_size):
